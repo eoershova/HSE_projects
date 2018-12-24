@@ -1,10 +1,8 @@
 import requests
 import re
 import os
-import codecs
 import csv
 import collections
-import matplotlib
 from cltk.corpus.utils.importer import CorpusImporter
 from cltk.stem.lemma import LemmaReplacer
 from cltk.stem.latin.j_v import JVReplacer
@@ -14,10 +12,6 @@ my_latin_downloader = CorpusImporter('latin')
 my_latin_downloader.import_corpus('latin_models_cltk')
 general_data = {}
 stems = collections.Counter()
-
-
-# скачивает список авторов
-
 
 
 # скачивает работы одного автора и кладет их в его папку в 'Latin_Corpus'
@@ -110,9 +104,7 @@ def forms_finder(files):
                 suppletive_forms_file_num += suppletive_form_num
         else:
             print(word_sum)
-
-
-        #print(suppletive_forms_file_num, compative_forms_file_num)
+        #этот параметр мы потом не использовали, но он считается (общее кол-во супплетивных и просто сравнительных форм)
     author_forms_used.update({'comparative_forms': compative_forms_file_num})
     author_forms_used.update({'suppletive_forms': suppletive_forms_file_num})
     print(author_forms_used)
@@ -121,7 +113,6 @@ def forms_finder(files):
 
 
 def lemmatizer(word):
-
     jv_replacer = JVReplacer()
     word = jv_replacer.replace(word)
     word_tokenizer = WordTokenizer('latin')
@@ -142,6 +133,7 @@ def lemmatizer(word):
 
 
 def analyzer():
+ # авторы такие потому что их страницы на thelatinlibrary.com нормально краулерятся
     author_tally = ['ammianus.html', 'apuleius.html', 'caes.html', 'cic.html', 'eutropius.html', 'frontinus.html',
                 'gellius.html', 'sha.html', 'liv.html', 'lucan.html', 'lucretius.html', 'martial.html', 'nepos.html',
                  'ovid.html', 'plautus.html', 'quintilian.html', 'silius.html', 'statius.html', 'tac.html', 'verg.html']
@@ -175,9 +167,6 @@ def csv_table_writer(data):
 def main():
     csv_table_creator()
     analyzer()
-
-
-
 
 
 if __name__ == '__main__':
