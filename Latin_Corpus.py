@@ -10,6 +10,7 @@ from cltk.tokenize.word import WordTokenizer
 from cltk.tag.pos import POSTag
 my_latin_downloader = CorpusImporter('latin')
 my_latin_downloader.import_corpus('latin_models_cltk')
+# !!! ничто из cltk не будет работать если не скачать определенные архивы (в их тутуториале они указаны)
 general_data = {}
 stems = collections.Counter()
 
